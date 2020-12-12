@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "501657964363",
+    "firebase_url": "https://dipx-b95a9.firebaseio.com",
+    "project_id": "dipx-b95a9",
+    "storage_bucket": "dipx-b95a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501657964363:android:554a49423ef5f5d879e2ce",
+        "android_client_info": {
+          "package_name": "com.example.dip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501657964363-8ejeuksk1a6r39h190rpq3c5ebktudmc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPNbS-LZ_T_6S_zAavvbynC_5YV0wIokk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501657964363-8ejeuksk1a6r39h190rpq3c5ebktudmc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
