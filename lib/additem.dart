@@ -19,7 +19,18 @@ class AddItem extends StatefulWidget {
 class _AddItem extends State<AddItem> {
   Color currentColor = Colors.blue;
   var _pickedImage;
-  String name, mark, company, type, price, color, size, date, bs64;
+  String name,
+      mark,
+      company,
+      type,
+      price,
+      color,
+      size,
+      date,
+      item_loc,
+      archive_loc,
+      stock,
+      bs64;
 
   void changeColor(Color color) => setState(() => currentColor = color);
 
@@ -38,6 +49,9 @@ class _AddItem extends State<AddItem> {
           "cat": widget.cat,
           "img": bs64,
           "subcat": widget.subcat,
+          "item_loc": item_loc,
+          "archive_loc": archive_loc,
+          "stock": stock,
         }));
     Navigator.pop(context);
     Navigator.pop(context);
@@ -122,7 +136,32 @@ class _AddItem extends State<AddItem> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Үнэ',
+                labelText: 'Агуулахын байршил',
+              ),
+              onChanged: (value) {
+                archive_loc = value;
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Барааны байршил',
+              ),
+              onChanged: (value) {
+                item_loc = value;
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Тоо ширхэг',
+              ),
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                stock = value.toString();
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Нэг бүрийн үнэ',
               ),
               keyboardType: TextInputType.number,
               onChanged: (value) {

@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class SingleItem extends StatefulWidget {
-  final String id, name, type, price, color, size, mark, company, date, title;
+  final String id,
+      name,
+      type,
+      price,
+      color,
+      size,
+      mark,
+      company,
+      date,
+      item_loc,
+      archive_loc,
+      stock,
+      user_type,
+      title;
   SingleItem(
     this.id,
     this.name,
@@ -13,6 +26,10 @@ class SingleItem extends StatefulWidget {
     this.mark,
     this.company,
     this.date,
+    this.item_loc,
+    this.archive_loc,
+    this.stock,
+    this.user_type,
     this.title,
   );
   _SingleItem createState() => _SingleItem();
@@ -62,6 +79,10 @@ class _SingleItem extends State<SingleItem> {
                               fontWeight: FontWeight.bold,
                               color: Colors.deepPurple),
                         ),
+                        Text(
+                          "Тоо ширхэг: ${widget.stock}",
+                          style: TextStyle(fontSize: 16),
+                        ),
                       ],
                     ),
                   )),
@@ -108,6 +129,11 @@ class _SingleItem extends State<SingleItem> {
                               style: TextStyle(fontSize: 16)),
                           Text("Төрөл: ${widget.type}",
                               style: TextStyle(fontSize: 16)),
+                          widget.user_type == '1'
+                              ? Text("Байршил: ${widget.archive_loc}",
+                                  style: TextStyle(fontSize: 16))
+                              : Text("Байршил: ${widget.item_loc}",
+                                  style: TextStyle(fontSize: 16)),
                           Text("Үйлдвэрлэсэн он: ${widget.date}",
                               style: TextStyle(fontSize: 16)),
                           Row(

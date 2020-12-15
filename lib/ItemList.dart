@@ -34,7 +34,10 @@ class _ItemsList extends State<ItemsList> {
           i["size"].toString(),
           i["mark"],
           i["company"],
-          i["made_date"]);
+          i["made_date"],
+          i["item_loc"],
+          i["archive_loc"],
+          i["stock"].toString());
 
       _items.add(_item);
     }
@@ -53,7 +56,8 @@ class _ItemsList extends State<ItemsList> {
             icon: Icon(Icons.search),
             onPressed: () {
               showSearch(
-                  context: context, delegate: Search(items, widget.title));
+                  context: context,
+                  delegate: Search(items, widget.title, widget.type));
             },
           ),
           SizedBox(
@@ -73,7 +77,7 @@ class _ItemsList extends State<ItemsList> {
               padding: EdgeInsets.all(10),
               itemCount: snapshot.data == null ? 0 : snapshot.data.length,
               gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 0.79),
+                  crossAxisCount: 2, childAspectRatio: 0.775),
               itemBuilder: (BuildContext context, int ind) {
                 return new InkWell(
                   onTap: () {
@@ -90,6 +94,10 @@ class _ItemsList extends State<ItemsList> {
                                 snapshot.data[ind].mark,
                                 snapshot.data[ind].company,
                                 snapshot.data[ind].date,
+                                snapshot.data[ind].item_loc,
+                                snapshot.data[ind].archive_loc,
+                                snapshot.data[ind].stock,
+                                widget.type,
                                 widget.title)));
                   },
                   child: Card(
@@ -109,9 +117,13 @@ class _ItemsList extends State<ItemsList> {
                         ),
                         Text(
                           "Үнэ: ${snapshot.data[ind].price}",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurple),
                         ),
                         Text(
-                          "Төрөл: ${snapshot.data[ind].type}",
+                          "Тоо ширхэг: ${snapshot.data[ind].stock}",
                         )
                       ],
                     ),
@@ -175,8 +187,8 @@ class Search extends SearchDelegate {
   }
 
   final List<Item> ListExample;
-  final String title;
-  Search(this.ListExample, this.title);
+  final String title, type;
+  Search(this.ListExample, this.title, this.type);
 
   List<Item> recentList = [];
 
@@ -190,51 +202,62 @@ class Search extends SearchDelegate {
         : suggestionList.addAll(ListExample.where((element) =>
             element.name.toLowerCase().contains(query.toLowerCase())));
 
-    return ListView.builder(
-      itemCount: suggestionList.length,
-      itemBuilder: (context, ind) {
-        return InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SingleItem(
-                        suggestionList[ind].id,
-                        suggestionList[ind].name,
-                        suggestionList[ind].type,
-                        suggestionList[ind].price,
-                        suggestionList[ind].color,
-                        suggestionList[ind].size,
-                        suggestionList[ind].mark,
-                        suggestionList[ind].company,
-                        suggestionList[ind].date,
-                        title)));
-          },
-          child: Card(
-              child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network(
-                    'http://testfoxx.ga/img/${suggestionList[ind].id}.png',
-                    height: 240,
-                    width: MediaQuery.of(context).size.width),
-                Text(
-                  suggestionList[ind].name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "Үнэ: ${suggestionList[ind].price}",
-                ),
-                Text(
-                  "Төрөл: ${suggestionList[ind].type}",
-                )
-              ],
+    return suggestionList.length != 0
+        ? ListView.builder(
+            itemCount: suggestionList.length,
+            itemBuilder: (context, ind) {
+              return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SingleItem(
+                                suggestionList[ind].id,
+                                suggestionList[ind].name,
+                                suggestionList[ind].type,
+                                suggestionList[ind].price,
+                                suggestionList[ind].color,
+                                suggestionList[ind].size,
+                                suggestionList[ind].mark,
+                                suggestionList[ind].company,
+                                suggestionList[ind].date,
+                                suggestionList[ind].item_loc,
+                                suggestionList[ind].archive_loc,
+                                suggestionList[ind].stock,
+                                type,
+                                title)));
+                  },
+                  child: Card(
+                      child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(
+                            'http://testfoxx.ga/img/${suggestionList[ind].id}.png',
+                            height: 240,
+                            width: MediaQuery.of(context).size.width),
+                        Text(
+                          suggestionList[ind].name,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Үнэ: ${suggestionList[ind].price}",
+                        ),
+                        Text(
+                          "Тоо ширхэг: ${suggestionList[ind].stock}",
+                        )
+                      ],
+                    ),
+                  )));
+            },
+          )
+        : Center(
+            child: Text(
+              "Хайлт илэрцгүй.",
+              style: TextStyle(fontSize: 16, color: Colors.red),
             ),
-          )),
-        );
-      },
-    );
+          );
   }
 }
