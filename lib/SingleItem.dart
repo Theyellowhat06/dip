@@ -130,9 +130,9 @@ class _SingleItem extends State<SingleItem> {
                           Text("Төрөл: ${widget.type}",
                               style: TextStyle(fontSize: 16)),
                           widget.user_type == '1'
-                              ? Text("Байршил: ${widget.archive_loc}",
+                              ? Text("Барааны байршил: ${widget.item_loc}",
                                   style: TextStyle(fontSize: 16))
-                              : Text("Байршил: ${widget.item_loc}",
+                              : Text("Агуулахын байршил: ${widget.archive_loc}",
                                   style: TextStyle(fontSize: 16)),
                           Text("Үйлдвэрлэсэн он: ${widget.date}",
                               style: TextStyle(fontSize: 16)),
